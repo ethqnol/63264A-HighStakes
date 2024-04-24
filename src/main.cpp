@@ -4,8 +4,8 @@
 using namespace ez;
 
 Drive chassis (
-    {1, 2, 3}, //Left Motor Ports
-    {-4, -5, -6}, //Right Motor Ports
+    {1, 2}, //Left Motor Ports
+    {-4, -5}, //Right Motor Ports
     7, //IMU Port
     3.25, //Wheel Size
     600, //Ticks per rotation of encoder
@@ -23,7 +23,6 @@ Drive chassis (
  */
 void initialize() {
 
-    ez_template_print();
 
     pros::delay(500); // Stop the user from doing anything while legacy ports configure
 
@@ -33,15 +32,15 @@ void initialize() {
     chassis.opcontrol_curve_default_set(0, 0); // Defaults for curve. If using tank, only the first parameter is used. (Comment this line out if you have an SD card!)  
     default_constants(); // Set the drive to your own constants from autons.cpp!
 
-    as::auton_selector.autons_add({
-        Auton("Example Drive\n\nDrive forward and come back.", drive_example),
-        Auton("Example Turn\n\nTurn 3 times.", turn_example),
-        Auton("Drive and Turn\n\nDrive forward, turn, come back. ", drive_and_turn),
-        Auton("Drive and Turn\n\nSlow down during drive.", wait_until_change_speed),
-        Auton("Swing Example\n\nSwing in an 'S' curve", swing_example),
-        Auton("Combine all 3 movements", combining_movements),
-        Auton("Interference\n\nAfter driving forward, robot performs differently if interfered or not.", interfered_example),
-    });
+    // as::auton_selector.autons_add({
+    //     Auton("Example Drive\n\nDrive forward and come back.", drive_example),
+    //     Auton("Example Turn\n\nTurn 3 times.", turn_example),
+    //     Auton("Drive and Turn\n\nDrive forward, turn, come back. ", drive_and_turn),
+    //     Auton("Drive and Turn\n\nSlow down during drive.", wait_until_change_speed),
+    //     Auton("Swing Example\n\nSwing in an 'S' curve", swing_example),
+    //     Auton("Combine all 3 movements", combining_movements),
+    //     Auton("Interference\n\nAfter driving forward, robot performs differently if interfered or not.", interfered_example),
+    // });
 
 
     chassis.initialize();
@@ -108,7 +107,7 @@ void opcontrol() {
             chassis.pid_tuner_iterate(); // Allow PID Tuner to iterate
         } 
 
-        chassis.opcontrol_tank(); // Tank control
+        chassis.opcontrol_arcade_standard(); // Tank control
 
 
         pros::delay(util::DELAY_TIME); // This is used for timer calculations!  Keep this util::DELAY_TIME
