@@ -4,8 +4,8 @@
 using namespace ez;
 
 Drive chassis (
-    {1, 2}, //Left Motor Ports
-    {-4, -5}, //Right Motor Ports
+    {-11, -18, 20}, //Left Motor Ports
+    {1,8 ,-10}, //Right Motor Ports
     7, //IMU Port
     3.25, //Wheel Size
     600, //Ticks per rotation of encoder
@@ -91,7 +91,7 @@ void autonomous() {
 void opcontrol() {
 
     chassis.drive_brake_set(MOTOR_BRAKE_COAST);
-
+    //swing_example();
     while (true) {
         
 
@@ -107,7 +107,7 @@ void opcontrol() {
             chassis.pid_tuner_iterate(); // Allow PID Tuner to iterate
         } 
 
-        chassis.opcontrol_arcade_standard(); // Tank control
+        chassis.opcontrol_arcade_standard(SPLIT); // Tank control
 
 
         pros::delay(util::DELAY_TIME); // This is used for timer calculations!  Keep this util::DELAY_TIME
