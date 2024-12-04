@@ -3,14 +3,20 @@
 
 using namespace ez;
 
+
+inline pros::Motor intake(2);
+inline pros::Motor hook_conveyor(3);
+inline ez::Piston mogo_mech('A');
+
 Drive chassis (
-    {-11, -18, 20}, //Left Motor Ports
-    {1,8 ,-10}, //Right Motor Ports
+    {-11, -18, -20}, //Left Motor Ports
+    {1, 8 ,10},
+    
+    //Right Motor Ports
     7, //IMU Port
     3.25, //Wheel Size
-    600, //Ticks per rotation of encoder
-    1.6667 // External Ratio
-    // ADD Tracking Wheel Ports
+    600, // rpm
+    1.3333
 );
 
 
@@ -94,7 +100,7 @@ void opcontrol() {
     //swing_example();
     while (true) {
         
-
+        
 
         if (!pros::competition::is_connected()) { 
             if (master.get_digital_new_press(DIGITAL_X)) 
@@ -107,7 +113,32 @@ void opcontrol() {
             chassis.pid_tuner_iterate(); // Allow PID Tuner to iterate
         } 
 
-        chassis.opcontrol_arcade_standard(SPLIT); // Tank control
+
+        if (master.get_digital(DIGITAL_L1)) {
+            intake.move(127);
+        } 
+        else if (master.get_digital(DIGITAL_L2)) {
+            intake.move(-127);
+        } 
+        else {
+            intake.move(0);
+        }
+
+        
+        if (master.get_digital(DIGITAL_R1)) {
+            hook_conveyor.move(127);
+        } 
+        else if (master.get_digital(DIGITAL_R2)) {
+            hook_conveyor.move(-127);
+        } 
+        else {
+            hook_conveyor.move(0);
+        }
+
+       // mogo_mech.button_toggle(master.get_digital(DIGITAL_A)) // 'A' button for mogo
+
+
+        chassis.opcontrol_arcade_standard(SPLIT); // Arcade control
 
 
         pros::delay(util::DELAY_TIME); // This is used for timer calculations!  Keep this util::DELAY_TIME
