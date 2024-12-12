@@ -35,7 +35,7 @@ void initialize() {
 
     chassis.opcontrol_curve_buttons_toggle(false); // Enables modifying the controller curve with buttons on the joysticks
     chassis.opcontrol_drive_activebrake_set(0); // Sets the active brake kP. We recommend 2.
-    chassis.opcontrol_curve_default_set(1, 6);
+    chassis.opcontrol_curve_default_set(1, 7);
     default_constants(); // Set the drive to your own constants from autons.cpp!
 
     // as::auton_selector.autons_add({
