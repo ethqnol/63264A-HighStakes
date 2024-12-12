@@ -4,13 +4,13 @@
 using namespace ez;
 
 
-inline pros::Motor intake(2);
-inline pros::Motor hook_conveyor(3);
+inline pros::Motor intake(1);
+inline pros::Motor hook_conveyor(17);
 inline ez::Piston mogo_mech('A');
 
 Drive chassis (
-    {-11, -18, -20}, //Left Motor Ports
-    {1, 8 ,10},
+    {-14, -15, -26}, //Left Motor Ports
+    {11, 12 ,13},
     
     //Right Motor Ports
     7, //IMU Port
@@ -33,9 +33,9 @@ void initialize() {
     pros::delay(500); // Stop the user from doing anything while legacy ports configure
 
 
-    chassis.opcontrol_curve_buttons_toggle(true); // Enables modifying the controller curve with buttons on the joysticks
+    chassis.opcontrol_curve_buttons_toggle(false); // Enables modifying the controller curve with buttons on the joysticks
     chassis.opcontrol_drive_activebrake_set(0); // Sets the active brake kP. We recommend 2.
-    chassis.opcontrol_curve_default_set(0, 0); // Defaults for curve. If using tank, only the first parameter is used. (Comment this line out if you have an SD card!)  
+    chassis.opcontrol_curve_default_set(1, 6);
     default_constants(); // Set the drive to your own constants from autons.cpp!
 
     // as::auton_selector.autons_add({
@@ -113,29 +113,32 @@ void opcontrol() {
             chassis.pid_tuner_iterate(); // Allow PID Tuner to iterate
         } 
 
+        if (master.get_digital(DIGITAL_R1)) {
+            intake.move(127);
+        } 
+        else if (master.get_digital(DIGITAL_R2)) {
+            intake.move(-127);
+        } 
+        else {
+            hook_conveyor.move(0);
+        }
 
         if (master.get_digital(DIGITAL_L1)) {
             intake.move(127);
+            hook_conveyor.move(-127);
         } 
         else if (master.get_digital(DIGITAL_L2)) {
             intake.move(-127);
+            hook_conveyor.move(127);
         } 
         else {
             intake.move(0);
         }
 
         
-        if (master.get_digital(DIGITAL_R1)) {
-            hook_conveyor.move(127);
-        } 
-        else if (master.get_digital(DIGITAL_R2)) {
-            hook_conveyor.move(-127);
-        } 
-        else {
-            hook_conveyor.move(0);
-        }
+       
 
-       // mogo_mech.button_toggle(master.get_digital(DIGITAL_A)) // 'A' button for mogo
+       mogo_mech.button_toggle(master.get_digital(DIGITAL_A)); // 'A' button for mogo
 
 
         chassis.opcontrol_arcade_standard(SPLIT); // Arcade control
