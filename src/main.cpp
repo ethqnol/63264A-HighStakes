@@ -1,5 +1,7 @@
 #include "main.h"
 
+#define WLOWP_THRESH 40 // Low pressure warning threshold.
+
 using namespace ez;
 
 inline pros::Motor intake(1);
@@ -123,20 +125,15 @@ void opcontrol() {
         }
 
         if (master.get_digital(DIGITAL_A)) {
-            mogo_mech.button_toggle(master.get_digital(DIGITAL_A));
+            mogo_mech.get() ? mogo_mech.set(false) : mogo_mech.set(true);
             master.set_text(0, 0,
                             "ACT:" + ++mogo_c); // Print number of actuations.
-            if (mogo_c == 40)
+            if (mogo_c == WLOWP_THRESH)
                 master.rumble("..."); // Warn pilot of diminishing air pressure.
         }
 
         // Reset actuation counter (when tank refilled).
         if (master.get_digital(DIGITAL_Y)) mogo_c = 0;
-
-        /*
-        mogo_mech.button_toggle(
-            master.get_digital(DIGITAL_A)); // 'A' button for mogo
-            */
 
         chassis.opcontrol_arcade_standard(SPLIT); // Arcade control
 
