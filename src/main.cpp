@@ -9,17 +9,13 @@ const int SWING_SPEED = 90;
 
 using namespace ez;
 
-
-
-Drive chassis (
-    { -14, -15, -16}, //Left Motor Ports
-    {11, 12 ,13},
-    //Right Motor Ports
-    7, //IMU Port
-    3.25, //Wheel Size
-    600, // rpm
-    1.3333
-);
+Drive chassis({-14, -15, -16}, // Left Motor Ports
+              {11, 12, 13},
+              // Right Motor Ports
+              7,    // IMU Port
+              3.25, // Wheel Size
+              600,  // rpm
+              1.3333);
 // Number of times the piston has been fired since air tank was filled.
 int mogo_c = 0;
 
@@ -51,7 +47,7 @@ void disabled() {}
 
 void competition_initialize() {}
 
-void autonomous(){
+void autonomous() {
 
     /**
     UNCOMMENT AUTON ROUTINE
@@ -61,9 +57,7 @@ void autonomous(){
     // red_rush();
     // blue_auton_top();
     // blue_rush();
-
 }
-
 
 /**
  * Runs the operator control code. This function will be started in its own task

@@ -1,5 +1,5 @@
-#include "main.h"
 #include "globals.h"
+#include "main.h"
 
 /////
 // For installation, upgrading, documentations and tutorials, check out our
@@ -10,7 +10,6 @@
 const int DRIVE_SPEED = 120;
 const int TURN_SPEED = 92;
 const int SWING_SPEED = 92;
-
 
 ///
 // Constants
@@ -31,169 +30,160 @@ void default_constants() {
     chassis.slew_drive_constants_set(7_in, 80);
 }
 
-
 /**
 Reseting Auton
  */
 void reset_sensors() {
-  chassis.pid_targets_reset();
-  chassis.drive_imu_reset();
-  chassis.drive_sensor_reset();
-  intake.move_voltage(0);
-  hook_conveyor.move_voltage(0);
+    chassis.pid_targets_reset();
+    chassis.drive_imu_reset();
+    chassis.drive_sensor_reset();
+    intake.move_voltage(0);
+    hook_conveyor.move_voltage(0);
 }
-
-
-
 
 /**
 Red Auton
  */
 
 void red_auton_top() {
-  reset_sensors();
-  mogo_mech.set(true);
-  chassis.pid_drive_set(-43_in, DRIVE_SPEED);
-  chassis.pid_wait();
+    reset_sensors();
+    mogo_mech.set(true);
+    chassis.pid_drive_set(-43_in, DRIVE_SPEED);
+    chassis.pid_wait();
 
-  //pickup mogo
-  mogo_mech.set(false);
+    // pickup mogo
+    mogo_mech.set(false);
 
-  //score preload on mogo
-  intake.move_voltage(-12000);
-  hook_conveyor.move_voltage(12000);
-  pros::delay(900);
-  intake.move_voltage(0);
-  hook_conveyor.move_voltage(0);
+    // score preload on mogo
+    intake.move_voltage(-12000);
+    hook_conveyor.move_voltage(12000);
+    pros::delay(900);
+    intake.move_voltage(0);
+    hook_conveyor.move_voltage(0);
 
-  //move to double stacked rings
-  chassis.pid_turn_set(80_deg, TURN_SPEED);
-  chassis.pid_wait();
-  chassis.pid_drive_set(18.5_in, DRIVE_SPEED);
-  chassis.pid_wait();
+    // move to double stacked rings
+    chassis.pid_turn_set(80_deg, TURN_SPEED);
+    chassis.pid_wait();
+    chassis.pid_drive_set(18.5_in, DRIVE_SPEED);
+    chassis.pid_wait();
 
-  //intake/score mogo
-  intake.move_voltage(-12000);
-  hook_conveyor.move_voltage(12000);
-  pros::delay(200);
-  chassis.pid_wait();
-  chassis.pid_turn_set(-90_deg, TURN_SPEED);
-  chassis.pid_wait();
-  intake.move_voltage(0);
-  hook_conveyor.move_voltage(0);
-  chassis.pid_drive_set(38_in, TURN_SPEED);
-  chassis.pid_wait();
-
+    // intake/score mogo
+    intake.move_voltage(-12000);
+    hook_conveyor.move_voltage(12000);
+    pros::delay(200);
+    chassis.pid_wait();
+    chassis.pid_turn_set(-90_deg, TURN_SPEED);
+    chassis.pid_wait();
+    intake.move_voltage(0);
+    hook_conveyor.move_voltage(0);
+    chassis.pid_drive_set(38_in, TURN_SPEED);
+    chassis.pid_wait();
 }
 
-void blue_auton_top(){
-  reset_sensors();
-  mogo_mech.set(true);
-  chassis.pid_drive_set(-43_in, DRIVE_SPEED);
-  chassis.pid_wait();
+void blue_auton_top() {
+    reset_sensors();
+    mogo_mech.set(true);
+    chassis.pid_drive_set(-43_in, DRIVE_SPEED);
+    chassis.pid_wait();
 
-  //pickup mogo
-  mogo_mech.set(false);
+    // pickup mogo
+    mogo_mech.set(false);
 
-  //score preload on mogo
-  intake.move_voltage(-12000);
-  hook_conveyor.move_voltage(12000);
-  pros::delay(900);
-  intake.move_voltage(0);
-  hook_conveyor.move_voltage(0);
+    // score preload on mogo
+    intake.move_voltage(-12000);
+    hook_conveyor.move_voltage(12000);
+    pros::delay(900);
+    intake.move_voltage(0);
+    hook_conveyor.move_voltage(0);
 
-  //move to double stacked rings
-  chassis.pid_turn_set(-80_deg, TURN_SPEED);
-  chassis.pid_wait();
-  chassis.pid_drive_set(18.5_in, DRIVE_SPEED);
-  chassis.pid_wait();
+    // move to double stacked rings
+    chassis.pid_turn_set(-80_deg, TURN_SPEED);
+    chassis.pid_wait();
+    chassis.pid_drive_set(18.5_in, DRIVE_SPEED);
+    chassis.pid_wait();
 
-  //intake/score mogo
-  intake.move_voltage(-12000);
-  hook_conveyor.move_voltage(12000);
-  pros::delay(200);
-  chassis.pid_wait();
-  chassis.pid_turn_set(90_deg, TURN_SPEED);
-  chassis.pid_wait();
-  intake.move_voltage(0);
-  hook_conveyor.move_voltage(0);
-  chassis.pid_drive_set(38_in, TURN_SPEED);
-  chassis.pid_wait();
-
+    // intake/score mogo
+    intake.move_voltage(-12000);
+    hook_conveyor.move_voltage(12000);
+    pros::delay(200);
+    chassis.pid_wait();
+    chassis.pid_turn_set(90_deg, TURN_SPEED);
+    chassis.pid_wait();
+    intake.move_voltage(0);
+    hook_conveyor.move_voltage(0);
+    chassis.pid_drive_set(38_in, TURN_SPEED);
+    chassis.pid_wait();
 }
-
 
 void red_rush() {
-  reset_sensors();
-  intake.move_voltage(-12000);
-  hook_conveyor.move_voltage(12000);
-  pros::delay(900);
-  mogo_mech.set(true);
-  intake.move_voltage(0);
-  hook_conveyor.move_voltage(0);
-  chassis.pid_drive_set(-43_in, DRIVE_SPEED);
-  chassis.pid_wait();
-  mogo_mech.set(false);
-  pros::delay(200);
-  chassis.pid_turn_set(-80_deg, TURN_SPEED);
-  chassis.pid_wait();
-  chassis.pid_drive_set(18.5_in, DRIVE_SPEED);
-  chassis.pid_wait();
-  intake.move_voltage(-12000);
-  hook_conveyor.move_voltage(12000);
-  pros::delay(900);
-  chassis.pid_wait();
-  chassis.pid_turn_set(90_deg, TURN_SPEED);
-  chassis.pid_wait();
-  intake.move_voltage(0);
-  hook_conveyor.move_voltage(0);
-  chassis.pid_drive_set(38_in, TURN_SPEED);
-  chassis.pid_wait();
+    reset_sensors();
+    intake.move_voltage(-12000);
+    hook_conveyor.move_voltage(12000);
+    pros::delay(900);
+    mogo_mech.set(true);
+    intake.move_voltage(0);
+    hook_conveyor.move_voltage(0);
+    chassis.pid_drive_set(-43_in, DRIVE_SPEED);
+    chassis.pid_wait();
+    mogo_mech.set(false);
+    pros::delay(200);
+    chassis.pid_turn_set(-80_deg, TURN_SPEED);
+    chassis.pid_wait();
+    chassis.pid_drive_set(18.5_in, DRIVE_SPEED);
+    chassis.pid_wait();
+    intake.move_voltage(-12000);
+    hook_conveyor.move_voltage(12000);
+    pros::delay(900);
+    chassis.pid_wait();
+    chassis.pid_turn_set(90_deg, TURN_SPEED);
+    chassis.pid_wait();
+    intake.move_voltage(0);
+    hook_conveyor.move_voltage(0);
+    chassis.pid_drive_set(38_in, TURN_SPEED);
+    chassis.pid_wait();
 }
 
-void blue_rush(){
-  reset_sensors();
-  mogo_mech.set(true);
-  chassis.pid_drive_set(-43_in, DRIVE_SPEED);
-  chassis.pid_wait();
+void blue_rush() {
+    reset_sensors();
+    mogo_mech.set(true);
+    chassis.pid_drive_set(-43_in, DRIVE_SPEED);
+    chassis.pid_wait();
 
-  //pickup mogo
-  mogo_mech.set(false);
+    // pickup mogo
+    mogo_mech.set(false);
 
-  //score preload on mogo
-  intake.move_voltage(-12000);
-  hook_conveyor.move_voltage(12000);
-  pros::delay(900);
-  intake.move_voltage(0);
-  hook_conveyor.move_voltage(0);
+    // score preload on mogo
+    intake.move_voltage(-12000);
+    hook_conveyor.move_voltage(12000);
+    pros::delay(900);
+    intake.move_voltage(0);
+    hook_conveyor.move_voltage(0);
 
-  //move to double stacked rings
-  chassis.pid_turn_set(80_deg, TURN_SPEED);
-  chassis.pid_wait();
-  chassis.pid_drive_set(18.5_in, DRIVE_SPEED);
-  chassis.pid_wait();
+    // move to double stacked rings
+    chassis.pid_turn_set(80_deg, TURN_SPEED);
+    chassis.pid_wait();
+    chassis.pid_drive_set(18.5_in, DRIVE_SPEED);
+    chassis.pid_wait();
 
-  //intake/score mogo
-  intake.move_voltage(-12000);
-  hook_conveyor.move_voltage(12000);
-  pros::delay(200);
-  chassis.pid_wait();
-  chassis.pid_turn_set(-90_deg, TURN_SPEED);
-  chassis.pid_wait();
-  intake.move_voltage(0);
-  hook_conveyor.move_voltage(0);
-  chassis.pid_drive_set(38_in, TURN_SPEED);
-  chassis.pid_wait();
+    // intake/score mogo
+    intake.move_voltage(-12000);
+    hook_conveyor.move_voltage(12000);
+    pros::delay(200);
+    chassis.pid_wait();
+    chassis.pid_turn_set(-90_deg, TURN_SPEED);
+    chassis.pid_wait();
+    intake.move_voltage(0);
+    hook_conveyor.move_voltage(0);
+    chassis.pid_drive_set(38_in, TURN_SPEED);
+    chassis.pid_wait();
 }
 
-
-void skills(){
+void skills() {
     hook_conveyor.move_voltage(12000);
     pros::delay(300);
     hook_conveyor.move_voltage(-12000);
     pros::delay(100);
     chassis.pid_drive_set(18.5_in, DRIVE_SPEED);
-
 }
 
 void tug(int attempts) {
