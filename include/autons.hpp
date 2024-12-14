@@ -4,12 +4,9 @@
 
 extern Drive chassis;
 
-void drive_example();
-void turn_example();
-void drive_and_turn();
-void wait_until_change_speed();
-void swing_example();
-void combining_movements();
-void interfered_example();
 
+void blue_auton_top();
+void red_auton_top();
+void red_rush();
+void blue_rush();
 void default_constants();

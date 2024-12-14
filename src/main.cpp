@@ -1,16 +1,14 @@
 #include "main.h"
-
+#include "globals.h"
 #define WLOWP_THRESH 40 // Low pressure warning threshold.
 
 using namespace ez;
 
-inline pros::Motor intake(1);
-inline pros::Motor hook_conveyor(17);
-inline ez::Piston mogo_mech('A');
+
 
 Drive chassis (
-    {-14, -15, -16}, //Left Motor Ports
-    {11, 12 ,13},
+    { -15, -16}, //Left Motor Ports
+    {12 ,13},
     //Right Motor Ports
     7, //IMU Port
     3.25, //Wheel Size
@@ -35,46 +33,34 @@ void initialize() {
         false); // Enables modifying the controller curve with buttons on the
                 // joysticks
     chassis.opcontrol_drive_activebrake_set(
-        0); // Sets the active brake kP. We recommend 2.
+        2); // Sets the active brake kP. We recommend 2.
     chassis.opcontrol_curve_default_set(1, 5);
     default_constants(); // Set the drive to your own constants from autons.cpp!
 
-    // as::auton_selector.autons_add({
-    //     Auton("Example Drive\n\nDrive forward and come back.",
-    //     drive_example), Auton("Example Turn\n\nTurn 3 times.", turn_example),
-    //     Auton("Drive and Turn\n\nDrive forward, turn, come back. ",
-    //     drive_and_turn), Auton("Drive and Turn\n\nSlow down during drive.",
-    //     wait_until_change_speed), Auton("Swing Example\n\nSwing in an 'S'
-    //     curve", swing_example), Auton("Combine all 3 movements",
-    //     combining_movements), Auton("Interference\n\nAfter driving forward,
-    //     robot performs differently if interfered or not.",
-    //     interfered_example),
-    // });
-
     chassis.initialize();
     as::initialize();
-    master.rumble(".");
+    master.rumble("...");
 }
 
 void disabled() {}
 
-void competition_initialize() {}
+void competition_initialize() {
 
-void autonomous() {
-    chassis.pid_targets_reset();               // Resets PID targets to 0
-    chassis.drive_imu_reset();                 // Reset gyro position to 0
-    chassis.drive_sensor_reset();              // Reset drive sensors to 0
-    chassis.drive_brake_set(MOTOR_BRAKE_HOLD); // Set motors to hold.  This
-                                               // helps autonomous consistency
-
-    int dist = 48;
-    chassis.pid_drive_set(dist, 127, true);
-    chassis.pid_wait_until(dist - 5);
-
-    int dist2 = -(dist - 6);
-    chassis.pid_drive_set(dist2, 127, true);
-    chassis.pid_wait_until(dist2 + 5);
 }
+
+void autonomous(){
+
+    /**
+    UNCOMMENT AUTON ROUTINE
+     */
+
+    // red_auton_top();
+    // red_rush();
+    // blue_auton_top();
+    // blue_rush();
+    
+}
+
 
 /**
  * Runs the operator control code. This function will be started in its own task
