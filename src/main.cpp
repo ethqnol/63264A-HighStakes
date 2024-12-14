@@ -7,8 +7,8 @@ using namespace ez;
 
 
 Drive chassis (
-    { -15, -16}, //Left Motor Ports
-    {12 ,13},
+    { -14, -15, -16}, //Left Motor Ports
+    {11, 12 ,13},
     //Right Motor Ports
     7, //IMU Port
     3.25, //Wheel Size

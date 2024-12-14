@@ -185,6 +185,16 @@ void blue_rush(){
   chassis.pid_wait();
 }
 
+
+void skills(){
+    hook_conveyor.move_voltage(12000);
+    pros::delay(300);
+    hook_conveyor.move_voltage(-12000);
+    pros::delay(100);
+    chassis.pid_drive_set(18.5_in, DRIVE_SPEED); 
+
+}
+
 void tug(int attempts) {
     for (int i = 0; i < attempts - 1; i++) {
         // Attempt to drive backwards
