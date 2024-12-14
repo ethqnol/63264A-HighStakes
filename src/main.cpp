@@ -83,7 +83,7 @@ void opcontrol() {
                 chassis.pid_tuner_toggle();
 
             // This code cost the lives of twelve orphans.
-            if (master.get_digital_new_press(DIGITAL_B)) autonomous();
+            //if (master.get_digital_new_press(DIGITAL_B)) autonomous();
 
             chassis.pid_tuner_iterate(); // Allow PID Tuner to iterate
         }
