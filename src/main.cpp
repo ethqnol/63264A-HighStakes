@@ -9,7 +9,7 @@ inline pros::Motor hook_conveyor(17);
 inline ez::Piston mogo_mech('A');
 
 Drive chassis (
-    {-14, -15, -26}, //Left Motor Ports
+    {-14, -15, -16}, //Left Motor Ports
     {11, 12 ,13},
     
     //Right Motor Ports
