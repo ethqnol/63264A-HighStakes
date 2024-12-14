@@ -9,13 +9,14 @@ inline ez::Piston mogo_mech('A');
 Drive chassis (
     {-14, -15, -16}, //Left Motor Ports
     {11, 12 ,13},
-
     //Right Motor Ports
     7, //IMU Port
     3.25, //Wheel Size
     600, // rpm
     1.3333
 );
+// Number of times the piston has been fired since air tank was filled.
+int mogo_c = 0;
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -121,8 +122,21 @@ void opcontrol() {
             intake.move(0);
         }
 
+        if (master.get_digital(DIGITAL_A)) {
+            mogo_mech.button_toggle(master.get_digital(DIGITAL_A));
+            master.set_text(0, 0,
+                            "ACT:" + ++mogo_c); // Print number of actuations.
+            if (mogo_c == 40)
+                master.rumble("..."); // Warn pilot of diminishing air pressure.
+        }
+
+        // Reset actuation counter (when tank refilled).
+        if (master.get_digital(DIGITAL_Y)) mogo_c = 0;
+
+        /*
         mogo_mech.button_toggle(
             master.get_digital(DIGITAL_A)); // 'A' button for mogo
+            */
 
         chassis.opcontrol_arcade_standard(SPLIT); // Arcade control
 
