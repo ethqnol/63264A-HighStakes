@@ -11,6 +11,7 @@ const int DRIVE_SPEED = 120;
 const int TURN_SPEED = 92;
 const int SWING_SPEED = 92;
 
+
 ///
 // Constants
 ///
@@ -213,4 +214,42 @@ void tug(int attempts) {
             return;
         }
     }
+<<<<<<< Updated upstream
 }
+=======
+}
+
+// If there is no interference, robot will drive forward and turn 90 degrees.
+// If interfered, robot will drive forward and then attempt to drive backwards.
+void interfered_example() {
+    chassis.pid_drive_set(24_in, DRIVE_SPEED, true);
+    chassis.pid_wait();
+
+    if (chassis.interfered) {
+        tug(3);
+        return;
+    }
+
+    chassis.pid_turn_set(90_deg, TURN_SPEED);
+    chassis.pid_wait();
+}
+
+// . . .
+// Make your own autonomous functions here!
+// . . .
+
+// Move motor m speed s for t miliseconds.
+void mvmt(pros::Motor m, int s, int t) {
+    m.move(s);
+    pros::delay(t);
+    m.move(0);
+}
+
+void skills() {
+    // Start against wall with wall stake.
+    // Trigger conveyor to score the preload donut.
+    //mvmt(hook_conveyor, 127, 1000);
+    // Move forward a bit.
+    chassis.pid_drive_set(24_in, DRIVE_SPEED, true);
+}
+>>>>>>> Stashed changes

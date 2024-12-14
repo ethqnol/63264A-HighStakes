@@ -1,6 +1,11 @@
 #include "main.h"
 #include "globals.h"
+#include "pros/misc.h"
+
 #define WLOWP_THRESH 40 // Low pressure warning threshold.
+const int DRIVE_SPEED = 110;
+const int TURN_SPEED = 90;
+const int SWING_SPEED = 90;
 
 using namespace ez;
 
@@ -46,8 +51,6 @@ void disabled() {}
 
 void competition_initialize() {
 
-}
-
 void autonomous(){
 
     /**
@@ -58,7 +61,7 @@ void autonomous(){
     // red_rush();
     // blue_auton_top();
     // blue_rush();
-    
+
 }
 
 
@@ -86,8 +89,7 @@ void opcontrol() {
                 chassis.pid_tuner_toggle();
 
             // This code cost the lives of twelve orphans.
-            // if (master.get_digital_new_press(DIGITAL_B))
-            //    autonomous();
+            if (master.get_digital_new_press(DIGITAL_B)) autonomous();
 
             chassis.pid_tuner_iterate(); // Allow PID Tuner to iterate
         }
@@ -110,16 +112,22 @@ void opcontrol() {
             intake.move(0);
         }
 
-        if (master.get_digital(DIGITAL_A)) {
-            mogo_mech.get() ? mogo_mech.set(false) : mogo_mech.set(true);
-            master.set_text(0, 0,
-                            "ACT:" + ++mogo_c); // Print number of actuations.
-            if (mogo_c == WLOWP_THRESH)
-                master.rumble("..."); // Warn pilot of diminishing air pressure.
+        mogo_mech.button_toggle(master.get_digital(DIGITAL_A));
+
+        if (master.get_digital_new_press(DIGITAL_A)) {
+            if (mogo_c == WLOWP_THRESH) {
+                master.rumble("-"); // Warn pilot of diminishing air pressure.
+                pros::delay(10);
+                master.print(0, 0, "ACT:%02d!!", ++mogo_c);
+            } else {
+                master.print(0, 0, "ACT:%02d", ++mogo_c);
+            }
         }
 
         // Reset actuation counter (when tank refilled).
-        if (master.get_digital(DIGITAL_Y)) mogo_c = 0;
+        if (master.get_digital_new_press(DIGITAL_B) &&
+            master.get_digital(DIGITAL_Y))
+            master.print(0, 0, "ACT:%02d   ", mogo_c = 0);
 
         chassis.opcontrol_arcade_standard(SPLIT); // Arcade control
 
