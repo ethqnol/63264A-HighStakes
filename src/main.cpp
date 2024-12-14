@@ -115,7 +115,7 @@ void opcontrol() {
         mogo_mech.button_toggle(master.get_digital(DIGITAL_A));
 
         if (master.get_digital_new_press(DIGITAL_A)) {
-            if (mogo_c == WLOWP_THRESH) {
+            if (mogo_c == 40) {
                 master.rumble("-"); // Warn pilot of diminishing air pressure.
                 pros::delay(10);
                 master.print(0, 0, "ACT:%02d!!", ++mogo_c);
@@ -125,8 +125,8 @@ void opcontrol() {
         }
 
         // Reset actuation counter (when tank refilled).
-        if (master.get_digital_new_press(DIGITAL_B) &&
-            master.get_digital(DIGITAL_Y))
+        if (master.get_digital_new_press(DIGITAL_Y) &&
+            master.get_digital(DIGITAL_A))
             master.print(0, 0, "ACT:%02d   ", mogo_c = 0);
 
         chassis.opcontrol_arcade_standard(SPLIT); // Arcade control
