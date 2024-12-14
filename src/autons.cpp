@@ -36,9 +36,9 @@ void default_constants() {
 Reseting Auton
  */
 void reset_sensors() {
-  chassis.pid_targets_reset();               
-  chassis.drive_imu_reset();                 
-  chassis.drive_sensor_reset(); 
+  chassis.pid_targets_reset();
+  chassis.drive_imu_reset();
+  chassis.drive_sensor_reset();
   intake.move_voltage(0);
   hook_conveyor.move_voltage(0);
 }
@@ -55,7 +55,7 @@ void red_auton_top() {
   mogo_mech.set(true);
   chassis.pid_drive_set(-43_in, DRIVE_SPEED);
   chassis.pid_wait();
-  
+
   //pickup mogo
   mogo_mech.set(false);
 
@@ -81,9 +81,9 @@ void red_auton_top() {
   chassis.pid_wait();
   intake.move_voltage(0);
   hook_conveyor.move_voltage(0);
-  chassis.pid_drive_set(38_in, TURN_SPEED); 
+  chassis.pid_drive_set(38_in, TURN_SPEED);
   chassis.pid_wait();
-  
+
 }
 
 void blue_auton_top(){
@@ -91,7 +91,7 @@ void blue_auton_top(){
   mogo_mech.set(true);
   chassis.pid_drive_set(-43_in, DRIVE_SPEED);
   chassis.pid_wait();
-  
+
   //pickup mogo
   mogo_mech.set(false);
 
@@ -117,9 +117,9 @@ void blue_auton_top(){
   chassis.pid_wait();
   intake.move_voltage(0);
   hook_conveyor.move_voltage(0);
-  chassis.pid_drive_set(38_in, TURN_SPEED); 
+  chassis.pid_drive_set(38_in, TURN_SPEED);
   chassis.pid_wait();
-  
+
 }
 
 
@@ -130,7 +130,7 @@ void red_rush() {
   pros::delay(900);
   mogo_mech.set(true);
   intake.move_voltage(0);
-  hook_conveyor.move_voltage(0); 
+  hook_conveyor.move_voltage(0);
   chassis.pid_drive_set(-43_in, DRIVE_SPEED);
   chassis.pid_wait();
   mogo_mech.set(false);
@@ -147,8 +147,8 @@ void red_rush() {
   chassis.pid_wait();
   intake.move_voltage(0);
   hook_conveyor.move_voltage(0);
-  chassis.pid_drive_set(38_in, TURN_SPEED); 
-  chassis.pid_wait(); 
+  chassis.pid_drive_set(38_in, TURN_SPEED);
+  chassis.pid_wait();
 }
 
 void blue_rush(){
@@ -156,7 +156,7 @@ void blue_rush(){
   mogo_mech.set(true);
   chassis.pid_drive_set(-43_in, DRIVE_SPEED);
   chassis.pid_wait();
-  
+
   //pickup mogo
   mogo_mech.set(false);
 
@@ -182,7 +182,7 @@ void blue_rush(){
   chassis.pid_wait();
   intake.move_voltage(0);
   hook_conveyor.move_voltage(0);
-  chassis.pid_drive_set(38_in, TURN_SPEED); 
+  chassis.pid_drive_set(38_in, TURN_SPEED);
   chassis.pid_wait();
 }
 
@@ -192,7 +192,7 @@ void skills(){
     pros::delay(300);
     hook_conveyor.move_voltage(-12000);
     pros::delay(100);
-    chassis.pid_drive_set(18.5_in, DRIVE_SPEED); 
+    chassis.pid_drive_set(18.5_in, DRIVE_SPEED);
 
 }
 
@@ -214,9 +214,6 @@ void tug(int attempts) {
             return;
         }
     }
-<<<<<<< Updated upstream
-}
-=======
 }
 
 // If there is no interference, robot will drive forward and turn 90 degrees.
@@ -237,7 +234,7 @@ void interfered_example() {
 // . . .
 // Make your own autonomous functions here!
 // . . .
-
+/*
 // Move motor m speed s for t miliseconds.
 void mvmt(pros::Motor m, int s, int t) {
     m.move(s);
@@ -252,4 +249,4 @@ void skills() {
     // Move forward a bit.
     chassis.pid_drive_set(24_in, DRIVE_SPEED, true);
 }
->>>>>>> Stashed changes
+*/
